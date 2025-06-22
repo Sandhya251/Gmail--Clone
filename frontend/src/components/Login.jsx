@@ -23,7 +23,12 @@ const submitHandler = async (e) => {
     e.preventDefault();
     console.log(input);
     try {
-        const res = await axiosInstance.post("/user/login", input);
+        const res = await axios.post("/user/login", input, {
+            headers: {
+                'Content-Type': "application/json"
+            },
+            withCredentials: true
+        });
 
         if (res.data.success) {
             dispatch(setAuthUser(res.data.user));
@@ -32,10 +37,18 @@ const submitHandler = async (e) => {
         }
     } catch (error) {
         console.log(error);
-        toast.error(
-            error?.response?.data?.message || "Login failed. Please try again."
-        );
+
+        // ✅ Check for 'not registered' in the error message
+        const errMsg = error?.response?.data?.message || "Login failed";
+
+        if (errMsg.toLowerCase().includes("not registered")) {
+            toast.error("User not registered. Please sign up first.");
+        } else {
+            toast.error(errMsg);
+        }
     }
+
+
 };
 
 
