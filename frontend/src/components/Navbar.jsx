@@ -7,7 +7,7 @@ import { TbGridDots } from "react-icons/tb";
 import Avatar from 'react-avatar';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser, setSearchText } from '../redux/appSlice';
-import axios from 'axios';
+import axios from '../axios';
 import toast from "react-hot-toast"
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Navbar = () => {
     const navigate = useNavigate();
     const logoutHandler = async () => {
         try {
-            const res = await axios.get('http://localhost:8080/api/v1/user/logout',{withCredentials:true});
+            const res = await axios.get('/user/logout',{withCredentials:true});
             console.log(res);
             toast.success(res.data.message);
             dispatch(setAuthUser(null));

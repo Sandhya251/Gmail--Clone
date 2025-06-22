@@ -3,7 +3,7 @@ import { RxCross2 } from 'react-icons/rx'
 import { useDispatch, useSelector } from 'react-redux'
 import { setEmails, setOpen } from '../redux/appSlice';
 import toast from 'react-hot-toast';
-import axios from 'axios';
+import axios from '../axios';
 
 const SendEmail = () => {
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const SendEmail = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post("http://localhost:8080/api/v1/email/create", formData, {
+            const res = await axios.post("/email/create", formData, {
                 headers:{
                     'Content-Type':"application/json"
                 },

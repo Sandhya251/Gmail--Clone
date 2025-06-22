@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../axios';
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         console.log(input);
         try {
-            const res = await axios.post("http://localhost:8080/api/v1/user/login", input, {
+            const res = await axios.post("/user/login", input, {
                 headers:{
                     'Content-Type':"application/json"
                 },

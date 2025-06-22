@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { BiArchiveIn } from "react-icons/bi";
 import { MdDeleteOutline, MdKeyboardArrowLeft, MdKeyboardArrowRight, MdOutlineAddTask, MdOutlineDriveFileMove, MdOutlineMarkEmailUnread, MdOutlineReport, MdOutlineWatchLater } from 'react-icons/md';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import axios from '../axios';
 import toast from 'react-hot-toast';
 
 
@@ -15,7 +15,7 @@ const Mail = () => {
     const params = useParams();
     const deleteHandler = async () => {
         try {
-            const res = await axios.delete(`http://localhost:8080/api/v1/email/${params.id}`,{withCredentials:true});
+            const res = await axios.delete(`/email/${params.id}`,{withCredentials:true});
             toast.success(res.data.message);
             navigate("/");
         } catch (error) {
