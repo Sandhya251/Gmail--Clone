@@ -17,28 +17,27 @@ const Login = () => {
     const changeHandler = (e) => {
         setInput({...input, [e.target.name]:e.target.value});
     }
+ // make sure this import path is correct
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        console.log(input);
-        try {
-            const res = await axios.post("/user/login", input, {
-                headers:{
-                    'Content-Type':"application/json"
-                },
-                withCredentials:true
-            });
+const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log(input);
+    try {
+        const res = await axiosInstance.post("/user/login", input);
 
-            if(res.data.success){
-                dispatch(setAuthUser(res.data.user));
-                navigate("/");
-                toast.success(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error(error.response.data.message);
+        if (res.data.success) {
+            dispatch(setAuthUser(res.data.user));
+            navigate("/");
+            toast.success(res.data.message);
         }
+    } catch (error) {
+        console.log(error);
+        toast.error(
+            error?.response?.data?.message || "Login failed. Please try again."
+        );
     }
+};
+
 
     return (
         <div className='flex items-center justify-center w-screen h-screen'>
